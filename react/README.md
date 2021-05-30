@@ -15,8 +15,6 @@
   1. [Parentheses](#parentheses)
   1. [Tags](#tags)
   1. [Methods](#methods)
-  1. [Ordering](#ordering)
-  1. [`isMounted`](#ismounted)
 
 ## Basic Rules
 
@@ -25,6 +23,8 @@
   - Always use JSX syntax.
   - Do not use `React.createElement` unless you’re initializing the app from a file that is not JSX.
   - [`react/forbid-prop-types`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/forbid-prop-types.md) will allow `arrays` and `objects` only if it is explicitly noted what `array` and `object` contains, using `arrayOf`, `objectOf`, or `shape`.
+
+**[⬆ back to top](#table-of-contents)**
 
 ## Class vs `React.createClass` vs stateless
 
@@ -69,11 +69,15 @@
     }
     ```
 
+**[⬆ back to top](#table-of-contents)**
+
 ## Mixins
 
   - [Do not use mixins](https://facebook.github.io/react/blog/2016/07/13/mixins-considered-harmful.html).
 
   > Why? Mixins introduce implicit dependencies, cause name clashes, and cause snowballing complexity. Most use cases for mixins can be accomplished in better ways via components, higher-order components, or utility modules.
+
+**[⬆ back to top](#table-of-contents)**
 
 ## Naming
 
@@ -150,6 +154,8 @@
     <MyComponent variant="fancy" />
     ```
 
+**[⬆ back to top](#table-of-contents)**
+
 ## Declaration
 
   - Do not use `displayName` for naming components. Instead, name the component by reference.
@@ -165,6 +171,8 @@
     export default class ReservationCard extends React.Component {
     }
     ```
+
+**[⬆ back to top](#table-of-contents)**
 
 ## Alignment
 
@@ -233,6 +241,8 @@
     )}
     ```
 
+**[⬆ back to top](#table-of-contents)**
+
 ## Quotes
 
   - Always use double quotes (`"`) for JSX attributes, but single quotes (`'`) for all other JS. eslint: [`jsx-quotes`](https://eslint.org/docs/rules/jsx-quotes)
@@ -252,6 +262,8 @@
     // good
     <Foo style={{ left: '20px' }} />
     ```
+
+**[⬆ back to top](#table-of-contents)**
 
 ## Spacing
 
@@ -281,6 +293,8 @@
     // good
     <Foo bar={baz} />
     ```
+
+**[⬆ back to top](#table-of-contents)**
 
 ## Props
 
@@ -477,6 +491,8 @@ We don’t recommend using indexes for keys if the order of items may change.
   }
   ```
 
+**[⬆ back to top](#table-of-contents)**
+
 ## Refs
 
   - Always use ref callbacks. eslint: [`react/no-string-refs`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-string-refs.md)
@@ -492,6 +508,8 @@ We don’t recommend using indexes for keys if the order of items may change.
       ref={(ref) => { this.myRef = ref; }}
     />
     ```
+
+**[⬆ back to top](#table-of-contents)**
 
 ## Parentheses
 
@@ -521,6 +539,8 @@ We don’t recommend using indexes for keys if the order of items may change.
     }
     ```
 
+**[⬆ back to top](#table-of-contents)**
+
 ## Tags
 
   - Always self-close tags that have no children. eslint: [`react/self-closing-comp`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/self-closing-comp.md)
@@ -547,6 +567,8 @@ We don’t recommend using indexes for keys if the order of items may change.
       baz="baz"
     />
     ```
+
+**[⬆ back to top](#table-of-contents)**
 
 ## Methods
 
@@ -648,89 +670,5 @@ We don’t recommend using indexes for keys if the order of items may change.
       return (<div />);
     }
     ```
-
-## Ordering
-
-  - Ordering for `class extends React.Component`:
-
-  1. optional `static` methods
-  1. `constructor`
-  1. `getChildContext`
-  1. `componentWillMount`
-  1. `componentDidMount`
-  1. `componentWillReceiveProps`
-  1. `shouldComponentUpdate`
-  1. `componentWillUpdate`
-  1. `componentDidUpdate`
-  1. `componentWillUnmount`
-  1. *event handlers starting with 'handle'* like `handleSubmit()` or `handleChangeDescription()`
-  1. *event handlers starting with 'on'* like `onClickSubmit()` or `onChangeDescription()`
-  1. *getter methods for `render`* like `getSelectReason()` or `getFooterContent()`
-  1. *optional render methods* like `renderNavigation()` or `renderProfilePicture()`
-  1. `render`
-
-  - How to define `propTypes`, `defaultProps`, `contextTypes`, etc...
-
-    ```jsx
-    import React from 'react';
-    import PropTypes from 'prop-types';
-
-    const propTypes = {
-      id: PropTypes.number.isRequired,
-      url: PropTypes.string.isRequired,
-      text: PropTypes.string,
-    };
-
-    const defaultProps = {
-      text: 'Hello World',
-    };
-
-    class Link extends React.Component {
-      static methodsAreOk() {
-        return true;
-      }
-
-      render() {
-        return <a href={this.props.url} data-id={this.props.id}>{this.props.text}</a>;
-      }
-    }
-
-    Link.propTypes = propTypes;
-    Link.defaultProps = defaultProps;
-
-    export default Link;
-    ```
-
-  - Ordering for `React.createClass`: eslint: [`react/sort-comp`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/sort-comp.md)
-
-  1. `displayName`
-  1. `propTypes`
-  1. `contextTypes`
-  1. `childContextTypes`
-  1. `mixins`
-  1. `statics`
-  1. `defaultProps`
-  1. `getDefaultProps`
-  1. `getInitialState`
-  1. `getChildContext`
-  1. `componentWillMount`
-  1. `componentDidMount`
-  1. `componentWillReceiveProps`
-  1. `shouldComponentUpdate`
-  1. `componentWillUpdate`
-  1. `componentDidUpdate`
-  1. `componentWillUnmount`
-  1. *clickHandlers or eventHandlers* like `onClickSubmit()` or `onChangeDescription()`
-  1. *getter methods for `render`* like `getSelectReason()` or `getFooterContent()`
-  1. *optional render methods* like `renderNavigation()` or `renderProfilePicture()`
-  1. `render`
-
-## `isMounted`
-
-  - Do not use `isMounted`. eslint: [`react/no-is-mounted`](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/no-is-mounted.md)
-
-  > Why? [`isMounted` is an anti-pattern][anti-pattern], is not available when using ES6 classes, and is on its way to being officially deprecated.
-
-  [anti-pattern]: https://facebook.github.io/react/blog/2015/12/16/ismounted-antipattern.html
 
 **[⬆ back to top](#table-of-contents)**
